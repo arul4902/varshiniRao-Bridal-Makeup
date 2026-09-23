@@ -4,14 +4,13 @@
  */
 
 export function initAnimations() {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    document.querySelectorAll('.reveal-on-scroll').forEach(el => {
-      el.classList.add('is-visible');
-    });
+  const revealElements = document.querySelectorAll('.reveal-on-scroll');
+
+  // Immediately make all elements visible on mobile or reduced motion to prevent hidden content
+  if (window.innerWidth <= 768 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    revealElements.forEach(el => el.classList.add('is-visible'));
     return;
   }
-
-  const revealElements = document.querySelectorAll('.reveal-on-scroll');
 
   const observer = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
@@ -26,4 +25,9 @@ export function initAnimations() {
   });
 
   revealElements.forEach(el => observer.observe(el));
+
+  // Failsafe: reveal any remaining elements after page settles
+  setTimeout(() => {
+    revealElements.forEach(el => el.classList.add('is-visible'));
+  }, 1200);
 }

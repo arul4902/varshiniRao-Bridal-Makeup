@@ -58,14 +58,18 @@ export function initBeforeAfter() {
   container.addEventListener('pointerup', handlePointerUp);
   container.addEventListener('pointercancel', handlePointerUp);
 
-  // Sync width on window resize
+  // Sync width on window resize and orientation changes
   const syncWidth = () => {
     const rect = container.getBoundingClientRect();
-    if (afterImgElement) {
+    if (afterImgElement && rect.width > 0) {
       afterImgElement.style.width = `${rect.width}px`;
     }
   };
 
   window.addEventListener('resize', syncWidth, { passive: true });
+  window.addEventListener('orientationchange', syncWidth, { passive: true });
   syncWidth();
+  requestAnimationFrame(syncWidth);
+  setTimeout(syncWidth, 100);
+  setTimeout(syncWidth, 500);
 }
