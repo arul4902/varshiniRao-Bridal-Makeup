@@ -55,11 +55,21 @@ export function initNav() {
     link.addEventListener('click', (e) => {
       const targetId = link.getAttribute('href');
       if (targetId && targetId.length > 1 && targetId.startsWith('#')) {
-        const targetEl = document.querySelector(targetId);
+        let targetEl = document.querySelector(targetId);
+
+        // When tapping "Check Date" (#enquire) on mobile / tablets (<= 900px),
+        // scroll directly to the form wrapper so the complete form is immediately visible!
+        if (targetId === '#enquire' && window.innerWidth <= 900) {
+          const formEl = document.querySelector('#enquiry-form-wrapper') || document.querySelector('#enquiry-form');
+          if (formEl) {
+            targetEl = formEl;
+          }
+        }
+
         if (targetEl) {
           e.preventDefault();
           toggleDrawer(false);
-          const headerHeight = header ? header.offsetHeight : 70;
+          const headerHeight = header ? header.offsetHeight : 68;
           const targetPosition = targetEl.getBoundingClientRect().top + window.pageYOffset - (headerHeight + 10);
           window.scrollTo({
             top: Math.max(0, targetPosition),

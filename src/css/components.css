@@ -1575,6 +1575,25 @@
   background-color: #FFFFFF;
 }
 
+.enquiry-form-header {
+  display: none;
+}
+
+.form-header-title {
+  font-family: var(--font-serif);
+  font-size: 1.55rem;
+  color: var(--color-deep-espresso);
+  margin-bottom: 0.35rem;
+  line-height: 1.25;
+}
+
+.form-header-sub {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  margin: 0;
+}
+
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -2058,6 +2077,32 @@ input[type="date"] {
 
 /* Tablets (max-width: 900px) */
 @media (max-width: 900px) {
+  .enquiry-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 720px;
+  }
+
+  .enquiry-form-wrapper {
+    order: 1;
+    padding: 2rem 1.5rem;
+    scroll-margin-top: calc(var(--header-height) + 12px);
+  }
+
+  .enquiry-aside {
+    order: 2;
+    padding: 2rem 1.5rem;
+    gap: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .enquiry-form-header {
+    display: block;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
   .consult-steps-grid {
     grid-template-columns: 1fr;
     gap: 1.25rem;
@@ -2144,9 +2189,68 @@ input[type="date"] {
     gap: 0.85rem;
   }
 
+  .date-enquiry-section {
+    padding: 1.5rem var(--section-padding-x) 2.5rem;
+    scroll-margin-top: calc(var(--header-height) + 10px);
+  }
+
+  .enquiry-form-wrapper {
+    order: 1;
+    padding: 1.35rem 1.15rem;
+    scroll-margin-top: calc(var(--header-height) + 10px);
+  }
+
+  .enquiry-aside {
+    order: 2;
+    padding: 1.35rem 1.15rem;
+    gap: 1.15rem;
+  }
+
+  .enquiry-aside .btn-whatsapp {
+    display: none;
+  }
+
+  .enquiry-aside h2 {
+    font-size: 1.35rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .enquiry-aside p {
+    font-size: 0.82rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .enquiry-aside-details {
+    gap: 0.65rem;
+  }
+
   .form-grid {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 0.85rem;
+  }
+
+  .form-group {
+    gap: 0.25rem;
+  }
+
+  .form-label {
+    font-size: 0.72rem;
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    padding: 0.75rem 0.85rem;
+    min-height: 48px;
+  }
+
+  .form-textarea {
+    min-height: 80px;
+  }
+
+  .form-actions {
+    gap: 0.75rem;
+    margin-top: 0.5rem;
   }
 
   .before-after-wrapper {
@@ -2232,10 +2336,13 @@ input[type="date"] {
   .note-card,
   .review-card,
   .consult-box,
-  .look-finder-card,
+  .look-finder-card {
+    padding: 1.75rem 1.25rem;
+  }
+
   .enquiry-form-wrapper,
   .enquiry-aside {
-    padding: 1.75rem 1.25rem;
+    padding: 1.25rem 1rem;
   }
 }
 
@@ -2247,6 +2354,15 @@ input[type="date"] {
 
   .brand-logo .logo-main {
     font-size: 1.22rem;
+  }
+
+  .enquiry-form-wrapper,
+  .enquiry-aside {
+    padding: 1.15rem 0.85rem;
+  }
+
+  .form-header-title {
+    font-size: 1.35rem;
   }
 
   .brand-logo .logo-sub {

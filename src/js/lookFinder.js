@@ -111,10 +111,19 @@ export function initLookFinder() {
         eventInput.value = selections.occasion;
       }
 
-      // Smooth scroll to enquiry section
-      const enquirySection = document.getElementById('enquire');
-      if (enquirySection) {
-        enquirySection.scrollIntoView({ behavior: 'smooth' });
+      // Smooth scroll to enquiry section / form
+      const targetEl = (window.innerWidth <= 900)
+        ? (document.getElementById('enquiry-form-wrapper') || document.getElementById('enquire'))
+        : document.getElementById('enquire');
+
+      if (targetEl) {
+        const header = document.querySelector('.site-header');
+        const headerHeight = header ? header.offsetHeight : 68;
+        const targetPos = targetEl.getBoundingClientRect().top + window.pageYOffset - (headerHeight + 10);
+        window.scrollTo({
+          top: Math.max(0, targetPos),
+          behavior: 'smooth'
+        });
         
         // Highlight the field briefly (avoid abrupt keyboard popup on mobile)
         if (preferenceInput) {
