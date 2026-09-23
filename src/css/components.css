@@ -1604,14 +1604,32 @@
 .form-select,
 .form-textarea {
   width: 100%;
-  padding: 0.8rem 0.95rem;
+  padding: 0.85rem 1rem;
   background-color: var(--color-warm-ivory);
   border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-sm);
-  font-size: 0.92rem;
+  font-size: 16px !important; /* CRITICAL: 16px prevents iOS Safari from zooming into the form */
   color: var(--text-primary);
   transition: all var(--transition-fast);
-  min-height: 44px;
+  min-height: 48px;
+  box-sizing: border-box;
+}
+
+.form-select {
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%232A211E' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+
+input[type="date"] {
+  min-height: 48px;
+  font-family: var(--font-sans);
+  font-size: 16px !important;
+  color: var(--text-primary);
+  background-color: var(--color-warm-ivory);
 }
 
 .form-input:focus,
@@ -1621,6 +1639,13 @@
   border-color: var(--color-deep-espresso);
   background-color: #FFFFFF;
   box-shadow: 0 0 0 3px rgba(42, 33, 30, 0.08);
+}
+
+.form-input.input-error,
+.form-select.input-error {
+  border-color: #D32F2F !important;
+  background-color: #FFF5F5 !important;
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.12) !important;
 }
 
 .form-textarea {
@@ -1634,6 +1659,18 @@
   flex-direction: column;
   gap: 0.85rem;
   margin-top: 0.75rem;
+}
+
+.form-error-banner {
+  display: none;
+  background-color: #FDEDED;
+  border: 1px solid #F5C2C7;
+  color: #842029;
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+  font-size: 0.86rem;
+  line-height: 1.4;
+  text-align: center;
 }
 
 .form-success-banner {

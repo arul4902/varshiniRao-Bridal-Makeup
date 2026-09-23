@@ -116,13 +116,15 @@ export function initLookFinder() {
       if (enquirySection) {
         enquirySection.scrollIntoView({ behavior: 'smooth' });
         
-        // Highlight the field briefly
+        // Highlight the field briefly (avoid abrupt keyboard popup on mobile)
         if (preferenceInput) {
-          preferenceInput.focus();
+          if (window.innerWidth > 768) {
+            preferenceInput.focus();
+          }
           preferenceInput.style.borderColor = 'var(--color-champagne-gold)';
           setTimeout(() => {
             preferenceInput.style.borderColor = '';
-          }, 2000);
+          }, 2500);
         }
       }
     });

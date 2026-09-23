@@ -57,7 +57,12 @@ export function initConsultationModal() {
       });
 
       closeModal();
-      window.open(url, '_blank', 'noopener,noreferrer');
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
+      if (isMobile) {
+        window.location.href = url;
+      } else {
+        window.open(url, '_blank', 'noopener,noreferrer');
+      }
     });
   }
 }

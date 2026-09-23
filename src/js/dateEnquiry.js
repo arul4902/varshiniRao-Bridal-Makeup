@@ -42,27 +42,60 @@ export function initDateEnquiry() {
   form.addEventListener('input', updateWhatsAppLinks);
   updateWhatsAppLinks();
 
+  const errorBanner = document.getElementById('form-error-banner');
+
   // Form submission handler
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
     const data = getFormData();
-    if (!data.name || !data.event || !data.date) {
-      alert('Please fill in your Name, Event Type, and Date.');
+    const nameInput = document.getElementById('enquiry-name');
+    const phoneInput = document.getElementById('enquiry-phone');
+    const dateInput = document.getElementById('enquiry-date');
+    const eventInput = document.getElementById('enquiry-event');
+
+    // Reset previous error states
+    [nameInput, phoneInput, dateInput, eventInput].forEach(el => {
+      if (el) el.classList.remove('input-error');
+    });
+    if (errorBanner) errorBanner.style.display = 'none';
+
+    let errorMsg = '';
+    if (!data.name) {
+      errorMsg = 'Please enter your full name.';
+      if (nameInput) nameInput.classList.add('input-error');
+    } else if (!data.phone) {
+      errorMsg = 'Please enter your phone or WhatsApp number.';
+      if (phoneInput) phoneInput.classList.add('input-error');
+    } else if (!data.date) {
+      errorMsg = 'Please select your wedding or event date.';
+      if (dateInput) dateInput.classList.add('input-error');
+    }
+
+    if (errorMsg) {
+      if (errorBanner) {
+        errorBanner.textContent = `⚠️ ${errorMsg}`;
+        errorBanner.style.display = 'block';
+        errorBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
       return;
     }
 
     const whatsappUrl = buildWhatsAppUrl(data);
 
-    // Show elegant feedback
+    // Show instant success feedback
     if (successBanner) {
       successBanner.style.display = 'block';
       successBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
-    // Open WhatsApp in a new tab with structured inquiry
-    setTimeout(() => {
+    // Direct WhatsApp navigation - works on all mobile & desktop browsers without popup blocking
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
+    if (isMobile) {
+      // Direct navigation launches the WhatsApp native mobile app without popup blocker intervention
+      window.location.href = whatsappUrl;
+    } else {
       window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-    }, 600);
+    }
   });
 }
